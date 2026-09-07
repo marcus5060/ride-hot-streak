@@ -1,0 +1,40 @@
+{
+  "name": "springboot-maven-claude-mysql",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21",
+      "installMaven": "true",
+      "mavenVersion": "3.9.9"
+    },
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-spring-boot",
+        "vscjava.vscode-spring-initializr"
+      ]
+    }
+  },
+
+  "forwardPorts": [8080, 3306],
+  "portsAttributes": {
+    "8080": {
+      "label": "Spring Boot app",
+      "onAutoForward": "notify"
+    },
+    "3306": {
+      "label": "MySQL"
+    }
+  },
+
+  "postCreateCommand": "mvn -q -DskipTests package",
+
+  "remoteUser": "vscode"
+}
